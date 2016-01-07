@@ -1,13 +1,14 @@
 require_relative "reader.rb"
 
 class Writer
-  def initialize
-    @sequences = Reader.new('dictionary.txt').load_file
+  attr_accessor :sequences
+  def initialize(sequences)
+    @sequences = sequences
   end
 
   def write_file
-    words_file = File.open('words', 'w')
-    sequences_file = File.open('sequences', 'w')
+    words_file = File.open("#{path}words", "w")
+    sequences_file = File.open("#{path}sequences", "w")
 
     @sequences.each do |key, value|
       if value.uniq.size == 1
@@ -17,5 +18,9 @@ class Writer
     end
     words_file.close
     sequences_file.close
+  end
+
+  def path
+    ""
   end
 end
